@@ -4,7 +4,7 @@
   "description": "Authentication Service for Airline Booking Backend Project",
   "main": "index.js",
   "scripts": {
-    "start" : "npx nodemon src/index"
+    "start": "npx nodemon src/index"
   },
   "author": "Rahul",
   "license": "ISC",
@@ -13,6 +13,9 @@
     "body-parser": "^1.20.2",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "nodemon": "^2.0.20"
+    "mysql2": "^3.1.2",
+    "nodemon": "^2.0.20",
+    "sequelize": "^6.29.0",
+    "sequelize-cli": "^6.6.0"
   }
 }
