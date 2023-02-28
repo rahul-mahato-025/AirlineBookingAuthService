@@ -2,7 +2,7 @@ const UserService = require("../services/user-service");
 
 const userService = new UserService();
 
-const create = async (req, res) => {
+const signup = async (req, res) => {
   try {
     const user = await userService.create({
       email: req.body.email,
@@ -17,8 +17,30 @@ const create = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       data: {},
-      success: true,
+      success: false,
       message: "Unable to register the user",
+      error: error,
+    });
+  }
+};
+
+const signin = async (req, res) => {
+  try {
+    const response = await userService.signin({
+      email: req.body.email,
+      password: req.body.password,
+    });
+    return res.status(200).json({
+      data: response,
+      success: true,
+      message: "Signed in successfully",
+      error: {},
+    });
+  } catch (error) {
+    return res.status(500).json({
+      data: {},
+      success: false,
+      message: "Unable to sign in",
       error: error,
     });
   }
@@ -37,7 +59,7 @@ const destroy = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       data: {},
-      success: true,
+      success: false,
       message: "Unable to delete the user",
       error: error,
     });
@@ -45,6 +67,7 @@ const destroy = async (req, res) => {
 };
 
 module.exports = {
-  create,
+  signup,
+  signin,
   destroy,
 };
