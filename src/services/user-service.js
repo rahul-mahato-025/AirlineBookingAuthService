@@ -46,6 +46,26 @@ class UserService {
     }
   }
 
+  async isAuthenticated(token) {
+    try {
+      const response = this.verifyToken(token);
+
+      if (!response) {
+        throw { error: "Invalid token" };
+      }
+
+      const user = await this.userRepository.getUserById(response.id);
+      if (!user) {
+        throw { error: "User no longer exists" };
+      }
+
+      return user.id;
+    } catch (error) {
+      console.log("Something went wrong in the isAuthenticated service");
+      throw error;
+    }
+  }
+
   generateToken(user) {
     try {
       const token = jwt.sign({ id: user.id, email: user.email }, JWT_KEY, {
