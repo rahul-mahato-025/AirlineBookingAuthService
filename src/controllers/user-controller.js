@@ -86,9 +86,29 @@ const destroy = async (req, res) => {
   }
 };
 
+const isAdmin = async (req, res) => {
+  try {
+    const response = await userService.isAdmin(req.body.id);
+    return res.status(200).json({
+      data: response,
+      success: true,
+      message: "User info fetched sucessfully",
+      error: {},
+    });
+  } catch (error) {
+    res.status(500).json({
+      data: {},
+      success: false,
+      message: "Unable to fetch user info",
+      error: error,
+    });
+  }
+};
+
 module.exports = {
   signup,
   signin,
   destroy,
   isAuthenticated,
+  isAdmin,
 };
