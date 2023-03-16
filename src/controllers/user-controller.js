@@ -1,3 +1,4 @@
+const { StatusCodes } = require("http-status-codes");
 const UserService = require("../services/user-service");
 
 const userService = new UserService();
@@ -8,18 +9,18 @@ const signup = async (req, res) => {
       email: req.body.email,
       password: req.body.password,
     });
-    return res.status(201).json({
+    return res.status(StatusCodes.CREATED).json({
       data: user,
       success: true,
       message: "User created Successfully",
       error: {},
     });
   } catch (error) {
-    return res.status(500).json({
+    return res.status(error.statusCode).json({
       data: {},
       success: false,
-      message: "Unable to register the user",
-      error: error,
+      message: error.message,
+      error: error.description,
     });
   }
 };
