@@ -106,10 +106,30 @@ const isAdmin = async (req, res) => {
   }
 };
 
+const get = async (req, res) => {
+  try {
+    const user = await userService.get(req.params.id);
+    return res.status(StatusCodes.OK).json({
+      data: user,
+      success: true,
+      message: "User info fetched sucessfully",
+      error: {},
+    });
+  } catch (error) {
+    res.status(500).json({
+      data: {},
+      success: false,
+      message: "Unable to fetch user info",
+      error: error,
+    });
+  }
+};
+
 module.exports = {
   signup,
   signin,
   destroy,
   isAuthenticated,
   isAdmin,
+  get,
 };

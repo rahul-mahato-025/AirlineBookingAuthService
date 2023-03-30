@@ -50,6 +50,16 @@ class UserService {
     }
   }
 
+  async get(userId) {
+    try {
+      const user = await this.userRepository.getUserById(userId);
+      return user;
+    } catch (error) {
+      console.log("Something went wrong in the signin in user service");
+      throw error;
+    }
+  }
+
   async isAuthenticated(token) {
     try {
       const response = this.verifyToken(token);
